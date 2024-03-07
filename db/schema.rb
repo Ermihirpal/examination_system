@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_02_28_073022) do
+ActiveRecord::Schema[7.0].define(version: 2024_03_06_045343) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -40,22 +40,52 @@ ActiveRecord::Schema[7.0].define(version: 2024_02_28_073022) do
     t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
   end
 
-  create_table "clients", force: :cascade do |t|
-    t.string "name"
-    t.string "address"
-    t.string "company"
-    t.string "phone_number"
+  create_table "exams", force: :cascade do |t|
+    t.string "subject"
+    t.integer "total_marks"
+    t.integer "per_que_mark"
+    t.integer "time_duration"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "options", force: :cascade do |t|
+    t.string "option_val"
+    t.boolean "is_correct", default: false
+    t.bigint "question_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["question_id"], name: "index_options_on_question_id"
+  end
+
+  create_table "questions", force: :cascade do |t|
+    t.text "que"
+    t.bigint "exam_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["exam_id"], name: "index_questions_on_exam_id"
+  end
+
+  create_table "responses", force: :cascade do |t|
+    t.string "ans"
+    t.bigint "question_id"
+    t.bigint "student_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["question_id"], name: "index_responses_on_question_id"
+    t.index ["student_id"], name: "index_responses_on_student_id"
   end
 
   create_table "students", force: :cascade do |t|
     t.string "name"
     t.string "address"
-    t.string "company"
     t.string "phone_number"
+    t.string "email"
+    t.string "password_digest"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "responses", "questions"
+  add_foreign_key "responses", "students"
 end

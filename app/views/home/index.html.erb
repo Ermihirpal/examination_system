@@ -1,0 +1,21 @@
+<h1>Welcome</h1>
+
+<%=flash[:notice]%>
+
+<h1>Online Examination System</h1>
+
+
+
+<%= link_to "Admin login", new_admin_user_session_path %><br><br>
+
+<% if session[:user_id].present?%>
+<%=link_to 'Dashboard',exams_path%><br><br>
+<%else%>
+<p>Please click link below for Login or Sign_Up</p>
+
+<%= link_to 'Register student', new_student_path %><br><br>
+
+<%=link_to 'student Login', '/login'%><br><br>
+<%end%>
+
+<%= link_to 'logout', logout_path, method: :delete  %>

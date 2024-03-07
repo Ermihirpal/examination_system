@@ -1,0 +1,24 @@
+<h1>Student Register successfull</h1>
+<p>
+  <strong>Name</strong>
+  <%= @student.name %>
+</p>
+ 
+<p>
+  <strong>email:</strong>
+  <%= @student.email %>
+</p>
+<p>
+  <strong>phone_number:</strong>
+  <%= @student.phone_number %>
+</p>
+ 
+<p>
+  <strong>address:</strong>
+  <%= @student.address %>
+</p>
+<p>
+
+
+<%= link_to 'Edit', edit_student_path(@student) %> |
+<%= link_to 'Back', root_path %>

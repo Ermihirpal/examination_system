@@ -1,0 +1,35 @@
+<h1>Students List</h1>
+
+<table>
+  <thead>
+   <tr>
+    <th>ID</th>
+    <th>Name</th>
+    <th>email</th>
+    <th>phone_number</th>
+    <th>address</th>  
+    <th>Show</th>
+    <th>Edit</th>
+    <th>Destroy</th>
+   </tr>
+  </thead>
+
+  <tbody>
+    <% @students.each do |student| %>
+      <tr>
+       <td><%=student.id %></td>
+       <td><%= student.name %></td>
+        <td><%=student.email %></td>
+       <td><%= student.phone_number%></td>
+        <td><%=student.address %></td>
+
+        <td><%= link_to 'Show', student %></td>
+        <td><%= link_to 'Edit', edit_student_path(student) %></td>
+        <td><%= link_to "Destroy", student_path(student), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %></td>
+     </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+<%=link_to 'Login', '/login'%>

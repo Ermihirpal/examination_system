@@ -1,0 +1,70 @@
+<h1> Exam</h1>
+<%flash[:error]%>
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<style>
+			h1 {
+				text-align: center;
+				font-size: 30px;
+			}
+		</style>
+	</head>
+	<body>
+		<p id="demo"></p>
+
+		<script>
+			let deadline = new Date("march 7, 2024 20:37:25")
+							.getTime();
+
+			let x = setInterval(function () {
+				
+				let now = new Date().getTime();
+
+				let t = deadline - now;
+
+				// let days = Math.floor(t / (1000 * 60 * 60 * 24));
+				let hours = Math.floor(
+					(t % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+				let minutes = Math.floor(
+					(t % (1000 * 60 * 60)) / (1000 * 60));
+				let seconds = Math.floor(
+					(t % (1000 * 60)) / 1000);
+
+				document.getElementById("demo").innerHTML =
+					 hours + "h " + 
+					minutes + "m " + seconds + "s ";
+
+				if (t < 0) {
+					clearInterval(x);
+					document.getElementById("demo")
+							.innerHTML = "EXPIRED";
+				}
+			}, 1000);
+		</script>
+	</body>
+</html>
+
+
+<%= form_with model:@question,url: exam_questions_path(params[:exam_id]), local: true do |form| %>
+
+<% @questions.each do |que| %>
+<h3><%=que.id%>
+  <%= que.que%><br></h3>
+   
+    <p>
+    <strong>Answer : </strong>
+    <%=collection_radio_buttons("questions[#{que.id}]", :option_id,que.options,:id,:option_val) do |b|
+
+    b.label(style: "display:block") { b.radio_button + b.text }
+  
+    end%>
+
+    </p>
+  <%end%>
+    <p>
+     <%= form.submit "submit" %>
+    </p>
+<% end %>
+

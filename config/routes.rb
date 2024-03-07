@@ -1,9 +1,24 @@
 Rails.application.routes.draw do
+  get 'questions/index'
+  get 'questions/new'
+  get 'questions/edit'
+  get 'questions/show'
+  get '/login'=>"sessions#new"
+  post '/login'=>"sessions#create", as: 'logedin'
+  get '/logout'=>"sessions#destroy", as: 'logout'
+  # get 'student/new'
+  # get 'student/show'
+  # get 'student/edit'
+  root 'home#index'
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
-
-  # Defines the root path route ("/")
-  # root "articles#index"
   
+  resources :students, only: [:new,:edit, :create, :index, :show]
+  resources :exams do
+    resources :questions do
+      resources :options
+    end
+  end
+  resources :questions
+  resources :options
 end

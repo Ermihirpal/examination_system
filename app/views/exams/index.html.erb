@@ -1,0 +1,31 @@
+<h1>Exam List</h1>
+<%= flash[:error]%> 
+<%= link_to 'logout', logout_path, method: :delete  %>
+<table>
+  <thead>
+   <tr>
+    <th>ID</th>
+    <th>subject</th>
+    <th>total_marks</th>
+    <th>per_que_mark</th>
+    <th>time_duration</th>  
+    <th>Start Exam</th>  
+   
+   </tr>
+  </thead>
+
+  <tbody>
+    <% @exams.each do |exam| %>
+      <tr>
+        <td><%=exam.id %></td>
+        <td><%= exam.subject %></td>
+        <td><%=exam.total_marks %></td>
+        <td><%= exam.per_que_mark%></td>
+        <td><%=exam.time_duration %></td>
+        <td><%= link_to 'Start', new_exam_question_path(exam)%></td>
+       </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>

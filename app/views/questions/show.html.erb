@@ -1,0 +1,20 @@
+<h1>Questions#show</h1>
+
+<p>
+  <strong>ID</strong>
+  <%= @question.id %>
+</p>
+ 
+<p>
+  <strong>QUESTION:</strong>
+  <%= @question.que %>
+</p>
+
+<p>
+  <strong>Options:</strong>
+  <%= @question.options %>
+</p>
+
+
+<%= link_to 'Edit', edit_question_path(@question) %> <br>
+<%= link_to 'Back', root_path %>
