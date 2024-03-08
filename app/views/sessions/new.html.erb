@@ -1,9 +1,16 @@
-<h1 >Login Page</h1>
+<style>
+			h1 {
+				text-align: center;
+				font-size: 30px;
+			}
+</style>
+
+<h1>Login Page</h1>
 
 <% if flash[:notice] %>
-  <%= content_tag :h1, flash[:notice] %>
+  <%= content_tag :h2, flash[:notice] %><p  style="color:red">please give valid user_id or password and register first  for login </p>
 <% else %>
-  <%= content_tag :h1, "Please Log in" %>
+  <%= content_tag :h1, "please login for exam" %>
 <% end %>
 
 <%= form_tag logedin_path do %>

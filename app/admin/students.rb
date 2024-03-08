@@ -1,6 +1,6 @@
 ActiveAdmin.register Student do
 
-  actions :index, :edit, :update, :create, :destroy
+  actions :index, :edit, :update,  :destroy
   
   permit_params :name,:address,:phone_number,:email,:password_digest
 

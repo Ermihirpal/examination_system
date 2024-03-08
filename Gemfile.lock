@@ -90,6 +90,9 @@ GEM
     bootstrap (5.3.2)
       autoprefixer-rails (>= 9.1.0)
       popper_js (>= 2.11.8, < 3)
+    bootstrap-sass (3.4.1)
+      autoprefixer-rails (>= 5.2.1)
+      sassc (>= 2.0.0)
     builder (3.2.4)
     capybara (3.40.0)
       addressable
@@ -300,6 +303,7 @@ DEPENDENCIES
   bcrypt (~> 3.1.7)
   bootsnap
   bootstrap (~> 5.3.2)
+  bootstrap-sass
   capybara
   debug
   devise (~> 4.9)

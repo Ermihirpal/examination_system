@@ -1,27 +1,21 @@
 class QuestionsController < ApplicationController
   before_action :set_question, only: [:show, :edit, :update, :destroy]
-  # before_action :require_login, only: [:new, :create]
-
   
   def index
     @questions = Question.all
   end
-
   
   def show
   end
-
   
   def new
     @question = Question.new
     @questions = Question.where(exam_id:params[:exam_id])
+    @exam= Exam.find_by(id:params[:exam_id]);
   end
 
-  
   def edit
   end
-
-  
  
   def create
     # begin
@@ -34,28 +28,18 @@ class QuestionsController < ApplicationController
        
           response = Response.new(question_id: key, ans: value["option_id"], student_id: session[:user_id])
           @student = Student.find_by(id:session[:user_id])
-          
-          # respond_to do |format|
+         
             if response.save
-            
-              # UserMailer.with(student: @student).welcome_email().deliver_now
               option = Option.find_by(question_id: key, id: value["option_id"])
-
                if option&.is_correct
-                  @total_marks += @exam.per_que_mark
-                 
+                  @total_marks += @exam.per_que_mark             
                 end
-
             end
-              # format.html {redirect_to(@student, notice: 'User response was successfully submited.') } 
-          # end
-
         end
-        UserMailer.welcome_email(@total_marks,@student).deliver_now
-        # format.html {redirect_to(@student, notice: 'User response was successfully submited.') }
+        UserMailer.welcome_email(@total_marks,@student,@exam).deliver_now
         redirect_to root_path, notice: 'User response was successfully submited.'                             
       else
-         flash[:notice] = "no question present"
+        flash[:error]  = "no question present"
       end
 
     #   rescue => exception
@@ -65,7 +49,6 @@ class QuestionsController < ApplicationController
   end
 
 
-  # PATCH/PUT /questions/1
   def update
     if @question.update(question_params)
         redirect_to @question, notice: 'question was successfully updated.' 
@@ -73,8 +56,6 @@ class QuestionsController < ApplicationController
         render :edit, status: :unprocessable_entity 
     end
   end
-
-  # DELETE /questions/1
  
   def destroy
     @question.destroy 

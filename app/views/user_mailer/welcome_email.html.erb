@@ -6,13 +6,11 @@
   <body>
     <h1>Welcome to OnlineExamination.com, <%= @student["name"] %></h1>
     <p>
-      You have successfully signed up to OnlineExamination.com,
+      You have successfully given your OnlineExamination,
       your username is:<%= @student["email"] %><br>
     </p>
-    <p>Your total mark::<%= @totalmark%> out of 100<p>
-    <p>
-      To login to the site, just follow this link: <%= @url='http://localhost:3000/' %>
-    </p>
+    <p>Your total mark::<%= @marks%> out of <%= @exam.total_marks%><p>
+   
     <p>Thanks for joining and have a great day!</p>
   </body>
 </html>

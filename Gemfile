@@ -80,3 +80,10 @@ gem 'sass-rails', '~> 6.0'
 gem 'bcrypt', '~> 3.1.7'
 
 gem 'bootstrap', '~> 5.3.2'
+
+gem 'bootstrap-sass'
+
+# # Bootstrap
+# gem 'bootstrap', '~> 4.1.1'
+# # Use SCSS for stylesheets
+# gem 'sass-rails', '~> 5.0'

@@ -21,4 +21,5 @@ Rails.application.routes.draw do
   end
   resources :questions
   resources :options
+  resources :sessions, only: [:new, :create, :destroy]
 end

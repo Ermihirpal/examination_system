@@ -11,7 +11,6 @@ ActiveAdmin.register Option do
     column :option_val
     column :is_correct
     column :exam_id
-    column :created_at 
     actions
   end
 

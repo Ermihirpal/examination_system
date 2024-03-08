@@ -17,19 +17,18 @@
   <tbody>
     <% @students.each do |student| %>
       <tr>
-       <td><%=student.id %></td>
-       <td><%= student.name %></td>
-        <td><%=student.email %></td>
-       <td><%= student.phone_number%></td>
-        <td><%=student.address %></td>
+      <td><%=student.id %></td>
+      <td><%= student.name %></td>
+      <td><%=student.email %></td>
+      <td><%= student.phone_number%></td>
+      <td><%=student.address %></td>
 
-        <td><%= link_to 'Show', student %></td>
-        <td><%= link_to 'Edit', edit_student_path(student) %></td>
-        <td><%= link_to "Destroy", student_path(student), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %></td>
+      <td><%= link_to 'Show', student %></td>
+      <td><%= link_to 'Edit', edit_student_path(student) %></td>
+      <td><%= link_to "Destroy", student_path(student), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %></td>
      </tr>
     <% end %>
   </tbody>
 </table>
 
-<br>
-<%=link_to 'Login', '/login'%>
+<br><%=link_to 'Login', '/login'%>

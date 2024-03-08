@@ -1,4 +1,4 @@
-<h1>Student Register successfull</h1>
+<h1>Student Registered Successfully</h1>
 <p>
   <strong>Name</strong>
   <%= @student.name %>
@@ -19,6 +19,8 @@
 </p>
 <p>
 
+<%=link_to 'student Login', '/login'%><br><br>
 
-<%= link_to 'Edit', edit_student_path(@student) %> |
+<%= link_to 'Edit', edit_student_path(@student) %> | 
+
 <%= link_to 'Back', root_path %>

@@ -1,60 +1,111 @@
-<h1> Exam</h1>
+<h1>Let's Start Exam Now</h1>
+
 <%flash[:error]%>
 
 <!DOCTYPE html>
 <html>
 	<head>
 		<style>
-			h1 {
+		body{
+			background-color:#4078c2;
+			color:white
+		}
+			/* h1 {
 				text-align: center;
 				font-size: 30px;
 			}
+		   .hour,.min,.sec {
+				text-align: center;
+				font-size: 30px;
+			} */
 		</style>
 	</head>
 	<body>
+
+
 		<p id="demo"></p>
+		<p id="ttime" style="opacity:-1"><%=@exam.time_duration%></p>
+        <div style="display:flex;width:100px;height:100px; gap-column:5px;font-size:50px; color:red;">
+	
+<div class="hour" ></div>:
+<div class="min"></div>:
+<div class="sec"></div>
+		</div>
+	<script>
+   let time = document.querySelector("#ttime");
+let timeValue = parseInt(time.textContent);
 
-		<script>
-			let deadline = new Date("march 7, 2024 20:37:25")
-							.getTime();
+// Check if the timeValue is non-zero before calculations
+if (timeValue !== 0) {
+    let hor = Math
+	.trunc(timeValue / 60);
+    let min = Math.trunc((timeValue % 60));
+    let sec = 59;
+    let hour = document.querySelector(".hour");
+    let minutes = document.querySelector(".min");
+    let second = document.querySelector(".sec");
 
-			let x = setInterval(function () {
-				
-				let now = new Date().getTime();
+    if (hour && minutes && second) {
+		  hour.innerHTML = hor;
+            minutes.innerHTML = min;
+            second.innerHTML = sec;
+        function timecal() {
+            sec = Number(second.innerHTML) - 1;
 
-				let t = deadline - now;
+            if (sec === 0 && min !== 0) {
+                min = Number(minutes.innerHTML) - 1;
+                sec = 59;
+            } else if (min === 0 && hor !== 0 && sec === 0) {
+                hor = Number(hour.innerHTML) - 1;
+                min = 59;
+                sec = 59;
+            }
 
-				// let days = Math.floor(t / (1000 * 60 * 60 * 24));
-				let hours = Math.floor(
-					(t % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-				let minutes = Math.floor(
-					(t % (1000 * 60 * 60)) / (1000 * 60));
-				let seconds = Math.floor(
-					(t % (1000 * 60)) / 1000);
+            // Use a function for consistent formatting
+            function formatTime(value, element) {
+                element.innerHTML = value < 10 ? `0${value}` : value;
+            }
 
-				document.getElementById("demo").innerHTML =
-					 hours + "h " + 
-					minutes + "m " + seconds + "s ";
+            // Format and update the displayed values
+            formatTime(min, minutes);
+            formatTime(hor, hour);
+            formatTime(sec, second);
 
-				if (t < 0) {
-					clearInterval(x);
-					document.getElementById("demo")
-							.innerHTML = "EXPIRED";
-				}
-			}, 1000);
-		</script>
+            // Stop the countdown when the timer reaches zero
+            if (hor === 0 && min === 0 && sec === 0) {
+                clearInterval(intervalId);
+            }
+        }
+
+        // Initial call to display the initial time
+        timecal();
+
+        // Set up the interval and store the interval ID
+        let intervalId = setInterval(() => {
+            timecal();
+        }, 1000);
+    } else {
+        console.error("One or more elements not found.");
+    }
+} else {
+    console.error("Invalid time value. Ensure #ttime contains a non-zero value.");
+}
+
+</script>
+
+
+
 	</body>
 </html>
 
 
 <%= form_with model:@question,url: exam_questions_path(params[:exam_id]), local: true do |form| %>
 
-<% @questions.each do |que| %>
-<h3><%=que.id%>
-  <%= que.que%><br></h3>
+  <% @questions.each do |que| %>
+   <h3><%=que.id%> <%=que.que%><br></h3>
    
     <p>
-    <strong>Answer : </strong>
+    <strong>Option: </strong>
     <%=collection_radio_buttons("questions[#{que.id}]", :option_id,que.options,:id,:option_val) do |b|
 
     b.label(style: "display:block") { b.radio_button + b.text }
