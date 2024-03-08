@@ -1,6 +1,6 @@
 class ExamsController < ApplicationController
     before_action :set_exam, only: [:show]
-    # before_action :require_login, only: [:new, :create]
+    before_action :require_login, only: [:new, :create]
     # # GET
     def index
     @exams = Exam.all

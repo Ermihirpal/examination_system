@@ -2,26 +2,26 @@ class QuestionsController < ApplicationController
   before_action :set_question, only: [:show, :edit, :update, :destroy]
   # before_action :require_login, only: [:new, :create]
 
-  # GET
+  
   def index
     @questions = Question.all
   end
 
-  # GET
+  
   def show
   end
 
-  # GET
+  
   def new
     @question = Question.new
     @questions = Question.where(exam_id:params[:exam_id])
   end
 
-  # GET
+  
   def edit
   end
 
-  # POST /questions
+  
  
   def create
     # begin
